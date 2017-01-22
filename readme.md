@@ -1,27 +1,33 @@
-# Laravel PHP Framework
+After make Clone of the github project is necesary make ´composer install´ to install all the dependencies of laravel.
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+To configure the api is necessary have the modrewrite enabled and use the next virtual hos config in you httpd-vhost.conf or the file when you configure the virtual host:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+```apache
+<VirtualHost *:80>
+    ServerName local.intraway.vh
+    DocumentRoot "/directory/to/intraway-test/public"
+    LogLevel info
+    ErrorLog "/directory/to/intraway-test/storage/logs/error.log"
+    CustomLog "/directory/to/intraway-test/storage/logs/access.log" common
+    <Directory "/directory/to/intraway-test/public">
+        AllowOverride Options FileInfo
+         Require all granted      
+    </Directory>
+</VirtualHost>
+```
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+In the hosts file you need to add the next line:
+127.0.0.1 local.intraway.vh
 
-## Official Documentation
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+An example to test the api with CURL is:
+curl -X GET -H "Cache-Control: no-cache" -H "Postman-Token: 9a1e999c-715b-b014-bbc2-1bfa79b3ba67" "http://local.intraway.vh/fizzbuzz/5/17"
 
-## Contributing
+You can use an rest client like postman to test the api using the  url in the curl command (http://local.intraway.vh/fizzbuzz/5/17) with the GET method.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+The method that have the code is in: .\app\Http\Controllers\Controller.php
 
-## Security Vulnerabilities
+The Unit test file is in: .\tests\IntraWayTest.php
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+To prove the unit test you can run ./vendor/bin/phpunit
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

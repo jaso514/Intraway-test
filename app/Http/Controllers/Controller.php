@@ -45,7 +45,6 @@ class Controller extends BaseController
             }else{
                 $result[] = $i;
             }
-            
         }
         
         return $result;
